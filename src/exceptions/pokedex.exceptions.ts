@@ -1,4 +1,9 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ExceptionMessages } from './exceptions.messages.enum';
 
@@ -9,19 +14,20 @@ export class PokedexExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
-    
-    response
-      .status(status)
-      .json({
-        statusCode: status,
-        message: this.messageHandler(request.url),
-        timestamp: new Date().toISOString(),
-        path: request.url,
-      });
+
+    response.status(status).json({
+      statusCode: status,
+      message: this.messageHandler(request.url),
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    });
   }
 
-  messageHandler(url: string ): string {
-    return url.includes("id") ? ExceptionMessages.byId : url.includes("name") 
-    ? ExceptionMessages.byName : "Make sure you request with name/pokememon_name or id/pokememon_id."
+  messageHandler(url: string): string {
+    return url.includes('id')
+      ? ExceptionMessages.byId
+      : url.includes('name')
+      ? ExceptionMessages.byName
+      : 'Make sure you request with name/pokememon_name or id/pokememon_id.';
   }
 }
