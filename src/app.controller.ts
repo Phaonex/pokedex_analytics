@@ -8,6 +8,6 @@ export class AppController {
 
   @Get("")
   getHome(): any {
-    return "<h1>Wlecome</h1> <p>Make a quest to pokemons or pokedex</p>"
+    return "<h1>Welcome to pokemon analytics API!</h1> <p>Make a quest to pokemons or pokedex</p>"
   }
 }
