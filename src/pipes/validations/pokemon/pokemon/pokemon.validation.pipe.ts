@@ -26,17 +26,26 @@ export const pokemonsSchema = z.object({
   Speed: z.number(),
 });
 
-export const pokemonByLimitSchema = z.object({
-  limit: z.number(),
-});
-
 export const pokemonByIdSchema = z.object({
   id: z.number(),
+});
+
+export const pokemonByTypesSchema = z.object({
+  Type1: z.string(),
+  Type2: z.string(),
 });
 
 export const pokemonByNameSchema = z.object({
   name: z.string(),
 });
 
-export type requestPokemonByLimitDto = z.infer<typeof pokemonByLimitSchema>;
+export const pokemonByLimitSchema = z.object({
+  limit: z.number(),
+});
+
 export type requestPokemonsDto = z.infer<typeof pokemonsSchema>;
+export type requestPokemonByNametDto = z.infer<typeof pokemonByNameSchema>;
+export type requestPokemonByIdDto = z.infer<typeof pokemonByIdSchema>;
+export type requestPokemonByTypesDto = z.infer<typeof pokemonByTypesSchema>;
+export type requestPokemonByLimitDto = z.infer<typeof pokemonByLimitSchema>;
+
