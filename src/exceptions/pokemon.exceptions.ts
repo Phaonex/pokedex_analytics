@@ -1,6 +1,8 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
 import { Request, Response } from 'express';
 import {ExceptionMessages} from "./exceptions.messages.enum"
+import { HttpArgumentsHost } from '@nestjs/common/interfaces';
+import { url } from 'inspector';
 
 @Catch(HttpException)
 export class PokemonExceptionFilter implements ExceptionFilter {

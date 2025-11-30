@@ -21,7 +21,7 @@ export class PockeApiService {
   readonly options = { maxResults: 10 };
 
   constructor(private readonly httpService: HttpService) {
-    this.bigquery = new BigQuery();
+    this.bigquery = new BigQuery({projectId: this.projectId});
   }
   // catch Them All! ;-)
   queryRows(query: Query): Observable<any> {
@@ -37,7 +37,7 @@ export class PockeApiService {
         return rows ?? [];
       } catch (error) {
         throw new HttpException(
-          error.response.status.errorResult,
+          error?.response?.status?.errorResult,
           HttpStatus.BAD_REQUEST,
         );
       }
