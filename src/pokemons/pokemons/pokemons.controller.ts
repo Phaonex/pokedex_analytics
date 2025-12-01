@@ -17,7 +17,7 @@ import {
 import { HttpExceptionFilter } from '../../exceptions/httpException.filter';
 import { PokemonExceptionFilter } from '../../exceptions/pokemon.exceptions';
 import { PockeApiService } from '../../services/pocke-api/pocke-api.service';
-import { requestPokemonByIdDto, requestPokemonNamedDto } from 'src/pipes/validations/pokedex/pokedex.validation/pokedex.validation.pipe';
+import { requestPokemonByIdDto,} from 'src/pipes/validations/pokedex/pokedex.validation/pokedex.validation.pipe';
 
 @UseFilters(HttpExceptionFilter)
 @Controller('pokemons')
@@ -59,10 +59,10 @@ export class PokemonsController {
       })
   }
 
-  @Get('/name/:name/:limit')
+  @Get('/name/:name')
   @UsePipes(new PokemonValidationPipe(pokemonByTypesSchema))
   @UseFilters(PokemonExceptionFilter)
-  getPokemonsListByNameLimited(
+  getPokemonsListByName(
     @Request() request: { params: requestPokemonByLimitDto & requestPokemonByNametDto },
   ): Observable<any> {
     console.log(request.params);
