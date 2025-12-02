@@ -3,14 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   Observable,
-  catchError,
-  firstValueFrom,
-  from,
-  lastValueFrom,
-  map,
-  of,
-  tap,
-  throwError,
+  from
 } from 'rxjs';
 
 @Injectable()
