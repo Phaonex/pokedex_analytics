@@ -12,6 +12,7 @@ export class PokemonValidationPipe implements PipeTransform {
 
 export const pokemonsSchema = z.object({
   int64_field_0: z.number(),
+  generation: z.number(),
   image_url: z.string(),
   Id: z.number(),
   Names: z.string(),
