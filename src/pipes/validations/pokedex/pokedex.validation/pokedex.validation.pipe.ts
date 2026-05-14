@@ -7,12 +7,10 @@ export class PokedexValidationPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     const result = this.schema.safeParse(value);
 
-    if (!result.success) {
-      result;
-    } else {
-      result.data;
+    if (result.success) {
+      return result.data;
     }
-    return value;
+    throw result.error;
   }
 }
 
@@ -71,7 +69,7 @@ export const pokedexSchema = z.object({
 });
 
 export const pokemonByIdSchema = z.object({
-  id: z.number(),
+  id: z.coerce.number(),
 });
 
 export const pokemonByNameSchema = z.object({

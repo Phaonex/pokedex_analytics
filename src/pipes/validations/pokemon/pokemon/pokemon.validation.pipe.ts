@@ -5,8 +5,11 @@ import { ZodObject, z } from 'zod';
 export class PokemonValidationPipe implements PipeTransform {
   constructor(private schema: ZodObject<any>) {}
   transform(value: any, metadata: ArgumentMetadata) {
-    const result = this.schema.parse(value);
-    return result.success ? result.data : value;
+    const result = this.schema.safeParse(value);
+    if (result.success) {
+      return result.data;
+    }
+    throw result.error;
   }
 }
 
@@ -28,7 +31,7 @@ export const pokemonsSchema = z.object({
 });
 
 export const pokemonByIdSchema = z.object({
-  id: z.number(),
+  id: z.coerce.number(),
 });
 
 export const pokemonByTypesSchema = z.object({
@@ -41,7 +44,12 @@ export const pokemonByNameSchema = z.object({
 });
 
 export const pokemonByLimitSchema = z.object({
-  limit: z.number(),
+  limit: z.coerce.number(),
+});
+
+export const pokemonByGenerationSchema = z.object({
+  generation: z.coerce.number(),
+  limit: z.coerce.number(),
 });
 
 export type requestPokemonsDto = z.infer<typeof pokemonsSchema>;
@@ -49,4 +57,3 @@ export type requestPokemonByNametDto = z.infer<typeof pokemonByNameSchema>;
 export type requestPokemonByIdDto = z.infer<typeof pokemonByIdSchema>;
 export type requestPokemonByTypesDto = z.infer<typeof pokemonByTypesSchema>;
 export type requestPokemonByLimitDto = z.infer<typeof pokemonByLimitSchema>;
-
